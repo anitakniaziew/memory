@@ -1,7 +1,6 @@
 const board = document.getElementById("board");
 const boardLength = board.childElementCount;
 const timer = document.getElementById("time");
-const field = null;
 
 window.onload = function() {
   createFronts();
@@ -9,10 +8,8 @@ window.onload = function() {
   timer.innerHTML += " 00:00";
 };
 
-let color1 = null;
-let color2 = null;
-let isField1Clicked = false;
-let isField2Clicked = false;
+let field1 = null;
+let field2 = null;
 let count = 0;
 
 let colors = [
@@ -62,28 +59,24 @@ function pickColor() {
 }
 
 function showColor(event) {
-  if (isField1Clicked && isField2Clicked) return;
+  if (field2 && field2) return;
   const clickedField = event.target;
-  const clickedFieldColor = clickedField.classList[1];
-  clickedField.style = "background-color: " + clickedFieldColor;
-  if (color1) {
-    color2 = clickedFieldColor;
+  const color = clickedField.classList[1];
+  clickedField.style = "background-color: " + color;
+  if (field1) {
     field2 = clickedField;
-    isField2Clicked = true;
-    compareColor(color1, color2);
+    compareColor(field1, field2);
   } else {
-    color1 = clickedFieldColor;
     field1 = clickedField;
-    isField1Clicked = true;
   }
 }
 
 function compareColor() {
+  let color1 = field1.style.backgroundColor;
+  let color2 = field2.style.backgroundColor;
   if (color1 === color2) {
-    color1 = null;
-    color2 = null;
-    isField1Clicked = false;
-    isField2Clicked = false;
+    field1 = null;
+    field2 = null;
     checkIfWin();
   } else {
     setTimeout(hideColor, 1000);
@@ -91,12 +84,10 @@ function compareColor() {
 }
 
 function hideColor() {
-  color1 = null;
-  color2 = null;
-  isField1Clicked = false;
-  isField2Clicked = false;
   field1.style = "background-color: transparent";
   field2.style = "background-color: transparent";
+  field1 = null;
+  field2 = null;
 }
 
 function checkIfWin() {
