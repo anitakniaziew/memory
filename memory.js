@@ -31,6 +31,8 @@ let colors = [
   "forestgreen"
 ];
 
+let usedColors = [];
+
 function createFronts() {
   for (let i = 0; i < boardLength; i++) {
     board.children[i].onclick = showColor;
@@ -53,9 +55,10 @@ function createBacks() {
 
 function pickColor() {
   let index = Math.floor(Math.random() * colors.length);
-  let color = colors[index];
+  let randomColor = colors[index];
   colors.splice(index, 1);
-  return color;
+  usedColors.push(randomColor);
+  return randomColor;
 }
 
 function showColor(event) {
@@ -102,4 +105,18 @@ function checkIfWin() {
 
 function endGame() {
   alert("BRAWO!");
+  restartGame();
+}
+
+function restartGame() {
+  field1 = null;
+  field2 = null;
+  count = 0;
+  colors = usedColors;
+  usedColors = [];
+  for (let index in board.children) {
+    board.children[index].innerHTML = "";
+  }
+  createFronts();
+  createBacks();
 }
