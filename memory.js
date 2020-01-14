@@ -2,15 +2,10 @@ const board = document.getElementById("board");
 const boardLength = board.childElementCount;
 const timer = document.getElementById("time");
 
-window.onload = function() {
-  createFronts();
-  createBacks();
-  timer.innerHTML += " 00:00";
-};
-
 let field1 = null;
 let field2 = null;
-let count = 0;
+let secondsCounter = 0;
+let minutesCounter = 0;
 
 let colors = [
   "cyan",
@@ -32,6 +27,15 @@ let colors = [
 ];
 
 let usedColors = [];
+
+window.onload = setBoard;
+let timeInterval = setInterval(countTime, 1000);
+
+function setBoard() {
+  createFronts();
+  createBacks();
+  timer.innerHTML = "00:00";
+}
 
 function createFronts() {
   for (let i = 0; i < boardLength; i++) {
@@ -94,7 +98,7 @@ function hideColor() {
 }
 
 function checkIfWin() {
-  count = 0;
+  let count = 0;
   const fields = Array.from(board.children);
   fields.forEach(child => {
     let backColor = child.lastElementChild.style.backgroundColor;
@@ -103,20 +107,47 @@ function checkIfWin() {
   if (count === 16) setTimeout(endGame, 500);
 }
 
+function countTime() {
+  let lineLength = timer.innerText.length;
+  let minutes = timer.innerText.substr(0, lineLength - 3);
+  let seconds = timer.innerText.substr(3, lineLength - 1);
+  secondsCounter += 1;
+  if (secondsCounter < 10) {
+    seconds = "0" + secondsCounter;
+    timer.innerText = minutes + ":" + seconds;
+  } else if (secondsCounter >= 10 && secondsCounter < 60) {
+    seconds = secondsCounter;
+    timer.innerText = minutes + ":" + seconds;
+  } else if (secondsCounter === 60) {
+    secondsCounter = 0;
+    minutesCounter += 1;
+    if (parseInt(minutes) < 4) {
+      console.log(parseInt(minutes));
+      minutes = "0" + minutesCounter;
+      timer.innerText = minutes + ":00";
+    } else {
+      alert("Are you still there??? Let's just try again!");
+      restartGame();
+    }
+  }
+}
+
 function endGame() {
   alert("BRAWO!");
   restartGame();
 }
 
 function restartGame() {
+  clearInterval(timeInterval);
   field1 = null;
   field2 = null;
-  count = 0;
+  minutesCounter = 0;
+  secondsCounter = 0;
   colors = usedColors;
   usedColors = [];
   for (let index in board.children) {
     board.children[index].innerHTML = "";
   }
-  createFronts();
-  createBacks();
+  setBoard();
+  timeInterval = setInterval(countTime, 1000);
 }
