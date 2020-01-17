@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .wf-active body {
@@ -17,15 +18,16 @@ body {
 
 .timer {
   margin-bottom: 30px;
+  font-size: 22px;
 }
 
 header {
   visibility: hidden;
   color: rgb(36, 36, 36);
   font-size: 32px;
-  margin-bottom: 70px;
   letter-spacing: 0.2em;
   text-align: center;
+  margin: 35px 0px;
 }
 
 #wrapper {
@@ -46,7 +48,10 @@ header {
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-  width: 50vw;
+  min-width: 312px;
+  min-height: 312px;
+  max-width: 408px;
+  max-height: 408px;
 }
 
 .field {
@@ -68,57 +73,71 @@ header {
   height: 100%;
 }
 
-@media screen and (max-width: 570px) {
+@media screen and (max-width: 354px) {
+  header {
+    font-size: 28px;
+    margin: 30px 0px;
+  }
   .field {
-    width: 40px;
-    height: 40px;
+    width: 58px;
+    height: 58px;
   }
 }
 
-@media screen and (min-width: 571px) and (max-width: 669px) {
-  .field {
-    width: 45px;
-    height: 45px;
+@media screen and (max-width: 600px) {
+  #wrapper {
+    width: 100vw;
   }
 }
 
-@media screen and (min-width: 670px) and (max-width: 755px) {
-  #board {
-    height: 48vh;
-  }
+@media screen and (min-width: 355px) and (max-width: 384px) {
   .field {
-    width: 57px;
-    height: 57px;
+    width: 61px;
+    height: 61px;
   }
 }
 
-@media screen and (min-width: 756px) and (max-width: 864px) {
-  #board {
-    height: 54vh;
-  }
+@media screen and (min-width: 385px) and (max-width: 409px) {
   .field {
-    width: 65px;
-    height: 65px;
+    width: 67px;
+    height: 67px;
   }
 }
 
-@media screen and (min-width: 865px) and (max-width: 900px) {
-  #board {
-    height: 60vh;
-  }
+@media screen and (min-width: 410px) and (max-width: 459px) {
   .field {
-    width: 71px;
-    height: 71px;
+    width: 74px;
+    height: 74px;
   }
 }
 
-@media screen and (min-width: 901px) {
-  #board {
-    width: 35vw;
-    height: 60vh;
-  }
+@media screen and (min-width: 460px) {
   .field {
     width: 80px;
     height: 80px;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 724px) {
+  #wrapper {
+    width: 75vw;
+  }
+}
+
+@media screen and (min-width: 725px) and (max-width: 864px) {
+  #wrapper {
+    width: 70vw;
+  }
+}
+
+@media screen and (min-width: 865px) and (max-width: 940px) {
+  #wrapper {
+    width: 65vw;
+  }
+}
+
+@media screen and (min-width: 941px) {
+  #wrapper {
+    width: 60vw;
   }
 }
