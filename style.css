@@ -52,6 +52,7 @@ header {
   min-height: 312px;
   max-width: 408px;
   max-height: 408px;
+  margin-bottom: 70px;
 }
 
 .field {
